@@ -1,0 +1,45 @@
+@charset "ISO-8859-1";
+  #order
+       {
+       border: 3px ridge blue;
+	   border-radius: 20px 30px 20px 30px;
+	   font-style:oblique;
+	   font-weight: lighter;
+	   font-size: 20px;
+	   font-family: "Times New Roman", Times, serif;
+	   background-color:#33CCFF;
+	   width:600px;
+	   height:300px;
+	   margin:auto;
+	   cellspacing:2px;
+       }
+   #form1
+       {
+       border: 3px ridge blue;
+	   border-radius: 20px 30px 20px 30px;
+	   font-style: italic;
+	   font-weight: lighter;
+	   font-size: 20px;
+	   font-family: "Times New Roman", Times, serif;
+	   background-color: grey;
+	   width:900px;
+	   height:700px;
+	   margin:auto;
+       }
+       .error
+      {
+     color : red;
+       }
+       
+     #val
+       {
+       border: 3px ridge green;
+	   border-radius: 20px 30px 20px 30px;
+	   font-style: italic;
+	   font-weight: lighter;
+	   font-size: 16px;
+	   background-color:#33FF82;
+	   width:400px;
+	   height:200px;
+	   margin:auto;
+       }
