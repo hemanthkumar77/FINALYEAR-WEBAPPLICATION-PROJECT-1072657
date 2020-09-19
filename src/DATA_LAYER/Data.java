@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.hibernate.Session;
 
+import ENTITES.approval;
 import ENTITES.courses;
 import ENTITES.profile;
 import ENTITES.user;
@@ -31,18 +32,23 @@ public class Data {
 		int value=0;
 		try(Session session=getSf().openSession())
 		{
-		 profile pro=use.getPro();
-		 // child refernce
-		 use.setPro(pro);
-		 // parent refernce 
+		  profile pro=use.getPro();
+		  // child refernce
+		  use.setPro(pro);
+		  // parent refernce 
 		  pro.setObj(use);
+		  // checking the username and University Id exist
+		  user object=session.get(user.class,use.getUsername());
+		  profile instance=session.get(profile.class,pro.getId());
+		  if(object==null && instance==null)
+		  {
 		  session.beginTransaction();
 	      session.save(use);
 		  session.save(pro);
 		  session.getTransaction().commit();
 		  value=1;
-	    }
-		     
+	       }
+		}  
 		catch(Exception e)
 		{
 			e.printStackTrace();
@@ -194,5 +200,74 @@ public class Data {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public boolean approval_table(String id, profile obj) {
+		boolean data=false;
+		try(Session session=getSf().openSession())
+		{
+		 approval object=session.get(approval.class,id);
+		 if(object==null)
+		 {
+         courses cour=session.get(courses.class,id);
+         approval app=new approval();
+         // setting the values in the approval table student details
+         app.setId(obj.getId());
+         app.setFirstname(obj.getFirstname()+obj.getLastname());
+         app.setDepartment(obj.getDepartment());
+         // setting the values in the approval table course details
+         app.setCourse_id(cour.getCourse_id());
+         app.setCourse_name(cour.getCourse_name());
+         app.setCredits(cour.getCredits());
+         app.setStaffname(cour.getStaffname());
+         app.setDays(cour.getDays());
+         app.setTimings(cour.getTimings());
+         app.setSemester(cour.getSemester());
+		 session.beginTransaction();
+		 session.save(app);
+		 session.getTransaction().commit();
+		 data=true;
+		 }
+		 
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}			
+		return data;
+	}
+
+	public List<approval> approval_pending(String id) {
+		List<approval>val=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from approval where id=?";
+		Query<approval>query=session.createQuery(HQL,approval.class);
+		 query.setParameter(0,id);
+		 val=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return val;
+	}
+
+	public void drop_course(String id) {
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="delete from approval where course_id=?";
+		Query query=session.createQuery(HQL);
+		 query.setParameter(0,id);
+		 query.executeUpdate();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

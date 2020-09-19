@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import DATA_LAYER.Data;
+import ENTITES.approval;
 import ENTITES.courses;
 import ENTITES.profile;
 import ENTITES.user;
@@ -48,6 +49,19 @@ public class Service_layer {
 
 	public void delete_id(String id) {
 		da.delete(id);
+	}
+
+	public boolean add_approval(String id, profile obj) {
+	return da.approval_table(id,obj);
+	}
+
+	public List<approval> getval(String id) {
+
+		return da.approval_pending(id);
+	}
+
+	public void drop_course(String id) {
+		da.drop_course(id);
 	}
 
 

@@ -1,5 +1,7 @@
 package CONTROLLER_LAYER;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +13,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import ENTITES.*;
-import ENTITES.user;
 import SERVICE_LAYER.Service_layer;
 
 @Controller
@@ -23,9 +25,9 @@ public class student_controller {
 	private Service_layer SE;
 	@GetMapping()
 	@RequestMapping("/profile")
-	public String profile( @SessionAttribute("user") profile user,Model mod)
+	public String profile( @SessionAttribute("user") profile use,Model mod)
 	{
-		String name=user.getFirstname()+user.getLastname();
+		String name=use.getFirstname()+use.getLastname();
 		mod.addAttribute("user",name);
 		return "student_profile";
 	}
@@ -40,8 +42,8 @@ public class student_controller {
 	
 	@PostMapping
 	@RequestMapping("/update_pro")
-	public String save(@ModelAttribute("save") profile use,Model mod, @SessionAttribute("user") profile user,BindingResult res)
-	{	String name=user.getFirstname()+user.getLastname();
+	public String save(@ModelAttribute("save") profile use,Model mod, @SessionAttribute("user") profile obj,BindingResult res)
+	{	String name=obj.getFirstname()+obj.getLastname();
 		mod.addAttribute("user",name);
 		if(res.hasErrors())
 		{
@@ -51,10 +53,49 @@ public class student_controller {
 		return "student_profile";
 	}
 	
+	
 	@GetMapping
 	@RequestMapping("/search")
-	public String method()
+	public String method(Model mod)
 	{
-		return null;
+		List<courses>object=SE.getdetails();
+		mod.addAttribute("obj",object);
+		return "student_course";
+	}
+	
+	@GetMapping
+	@RequestMapping("/add_course")
+	public String approval(@RequestParam("set_id") String id,@SessionAttribute("user") profile obj,Model mod)
+	{
+	   boolean val=SE.add_approval(id,obj);
+	   if(val==false)
+	   {
+		  mod.addAttribute("invalid","already you registered for the course");
+		  return "student_course";
+	   }
+		String name=obj.getFirstname()+obj.getLastname();
+		mod.addAttribute("user", name);
+		return "student_profile";
+	}
+	
+	@GetMapping
+	@RequestMapping("/drop_course")
+	public String drop(@RequestParam("del_id") String id,@SessionAttribute("user") profile obj,Model mod)
+	{
+	    SE.drop_course(id);
+		String name=obj.getFirstname()+obj.getLastname();
+		mod.addAttribute("user", name);
+		return "student_profile";
+	}
+	
+	
+	@GetMapping
+	@RequestMapping("/pending_approval")
+	public String retirve_val(Model mod,@SessionAttribute("user") profile use)
+	{
+	  String id=use.getId();
+	  List<approval>object=SE.getval(id);
+	  mod.addAttribute("obj", object);
+	  return "approval_pending";
 	}
 }

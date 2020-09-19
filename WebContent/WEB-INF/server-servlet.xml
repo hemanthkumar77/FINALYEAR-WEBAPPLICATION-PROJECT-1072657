@@ -41,6 +41,7 @@
 				<value>ENTITES.profile</value>
 				<value>ENTITES.user</value>
 				<value>ENTITES.courses</value>
+				<value>ENTITES.approval</value>
 			</array>
 		</property>
 
