@@ -76,7 +76,7 @@ public class user_controller {
 			}
 			else
 			{
-				mod.addAttribute("message","data no saved in DB");
+				mod.addAttribute("message","username or university_id already exist");
 				return "register";
 			}
 		}
@@ -102,7 +102,7 @@ public class user_controller {
 		profile user=SE.check(username,password,role);
 		if(user!=null)
 		{
-			System.out.println(user.getRole());
+		System.out.println(user.getRole());
 		String roles=user.getRole();
 		if(roles.equals("GRADUATE") || roles.equals("UNDER-GRADUATE"))
 		{
@@ -126,7 +126,7 @@ public class user_controller {
 		}
 		}
 	
-			mod.addAttribute("user","invalid credentials");
+			mod.addAttribute("users","invalid credentials");
 			return "login";
 	}
 	

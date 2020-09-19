@@ -48,3 +48,17 @@ function check()
 			}
 			
 }
+function update()
+	{
+		val=document.getElementById("p1");
+		if(confirm("are you sure to update ?"))
+		{
+			alert("vlaue updated successfully ");
+			return true;
+		}
+		else
+		{
+			alert("you cancelled");
+			return false;
+		}
+	}

@@ -11,10 +11,10 @@
 </head>
 <body>
 <marquee><h2><i>WELCOME TO THE REGISTERATION PAGE</i></h2></marquee>
-<span>${message}</span>
 <div id=form1 align="center">
 <form:form action="/FINALYEAR-WEBAPPLICATION-PROJECT-1072657/savedata" method="post" modelAttribute="save" >
 		<h2 align="center">Registration form</h2>
+		<span>${message}</span>
 		<table align="center">
 			<tr>
 				<td>USERNAME</td>

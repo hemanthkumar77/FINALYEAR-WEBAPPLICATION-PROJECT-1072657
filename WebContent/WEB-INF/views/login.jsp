@@ -42,7 +42,7 @@
 </tr>
 </table>
 </form>
-<span style="color: red;text-align:center">${user}</span>
+<span style="color: red;text-align:center">${users}</span>
 </div>
 </body>
 </html>

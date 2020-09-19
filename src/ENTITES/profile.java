@@ -71,7 +71,7 @@ private String department;
 private String email_id;
 
 
-@Column(columnDefinition="varchar(12) not null",name="phone_number",unique=true)
+@Column(columnDefinition="varchar(12) not null",name="phone_number")
 private String number;
 
 @NotBlank(message="please fill the address")
@@ -198,6 +198,13 @@ public profile(String id, String firstname, String lastname, int age, String rol
 	this.number = number;
 	this.address = address;
 	this.obj = obj;
+}
+
+@Override
+public String toString() {
+	return "profile [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", age=" + age + ", role="
+			+ role + ", DOB=" + DOB + ", gender=" + gender + ", department=" + department + ", email_id=" + email_id
+			+ ", number=" + number + ", address=" + address + ", obj=" + obj + "]";
 }
 
 

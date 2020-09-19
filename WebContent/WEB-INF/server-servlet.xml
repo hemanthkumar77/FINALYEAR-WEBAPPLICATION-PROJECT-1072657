@@ -40,6 +40,7 @@
 			<array>
 				<value>ENTITES.profile</value>
 				<value>ENTITES.user</value>
+				<value>ENTITES.courses</value>
 			</array>
 		</property>
 
