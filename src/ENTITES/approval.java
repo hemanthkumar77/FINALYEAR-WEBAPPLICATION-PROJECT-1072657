@@ -2,6 +2,8 @@ package ENTITES;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -21,12 +23,13 @@ public class approval {
 	@Length(max=10,message="not matching the format length")
 	@Pattern(regexp="^UB-[A-Z]{3}-[0-9]{3}$", message="UB-CSC-000")
 	private String id;
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private int main_id;
 	@NotBlank(message="please fill the name")
 	@Length(min=3,max=27,message="fill the proper NAME")
 	@Column(name="NAME",columnDefinition="varchar(54) not null")
 	private String firstname;
-	@Id
 	@Column(name="course_id",columnDefinition="varchar(12)")
 	@NotBlank(message="please fill the course_id")
 	@Length(max=12,message="not matching the format length")
@@ -135,22 +138,7 @@ public class approval {
 	public void setAdmin(String admin) {
 		this.admin = admin;
 	}
-	public approval(String department, String id, String firstname, String course_id, String course_name, int credits,
-			String staffname, String days, String timings, String semester, String head, String admin) {
-		super();
-		this.department = department;
-		this.id = id;
-		this.firstname = firstname;
-		this.course_id = course_id;
-		this.course_name = course_name;
-		this.credits = credits;
-		this.staffname = staffname;
-		this.days = days;
-		this.timings = timings;
-		this.semester = semester;
-		this.head = head;
-		this.admin = admin;
-	}
+
 	public approval() {
 		super();
 		// TODO Auto-generated constructor stub

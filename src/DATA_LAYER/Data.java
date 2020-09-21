@@ -37,10 +37,16 @@ public class Data {
 		  use.setPro(pro);
 		  // parent refernce 
 		  pro.setObj(use);
-		  // checking the username and University Id exist
-		  user object=session.get(user.class,use.getUsername());
-		  profile instance=session.get(profile.class,pro.getId());
-		  if(object==null && instance==null)
+		  // checking the username and University Id and email_id exist
+		  //user object=session.get(user.class,use.getUsername());
+		  //profile instance=session.get(profile.class,pro.getId());
+		  String HQL="from user e inner join Fetch e.pro a where e.username=? or a.id=? or a.email_id=?";
+	        Query<user> query=session.createQuery(HQL);
+	        query.setParameter(0,use.getUsername());
+	        query.setParameter(1,pro.getId());
+	        query.setParameter(2,pro.getEmail_id());
+	        user object=query.uniqueResult();
+		  if(object==null)
 		  {
 		  session.beginTransaction();
 	      session.save(use);
@@ -206,7 +212,12 @@ public class Data {
 		boolean data=false;
 		try(Session session=getSf().openSession())
 		{
-		 approval object=session.get(approval.class,id);
+		 //approval object=session.get(approval.class,id);
+			 String HQL="from approval where id=? and course_id=?";
+		        Query<user> query=session.createQuery(HQL);
+		        query.setParameter(0,obj.getId());
+		        query.setParameter(1,id);
+		        user object=query.uniqueResult();
 		 if(object==null)
 		 {
          courses cour=session.get(courses.class,id);

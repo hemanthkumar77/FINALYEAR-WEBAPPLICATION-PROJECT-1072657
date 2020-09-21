@@ -76,7 +76,7 @@ public class user_controller {
 			}
 			else
 			{
-				mod.addAttribute("message","username or university_id already exist");
+				mod.addAttribute("message","username or university_id or email_id already exist");
 				return "register";
 			}
 		}
