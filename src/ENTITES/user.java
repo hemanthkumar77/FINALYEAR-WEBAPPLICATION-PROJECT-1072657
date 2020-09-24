@@ -22,7 +22,7 @@ private String username;
 @Column(columnDefinition="varchar(21) not null",name="pass")
 @NotBlank(message="please fill the password")
 @Length(max=21,message="combination of letters then numbers then specialcharacters max=12")
-@Pattern(regexp="^[a-z]{3}[A-Z]{3}[0-9]{4}[@#$*!~]{2}$", message="example:hemANT2345@$")
+@Pattern(regexp="^[a-z]{3}[A-Z]{3}[0-9]{4}[@#$*!~]{2}", message="example:hemANT2345@$")
 private String password;
 
 @Valid

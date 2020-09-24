@@ -64,6 +64,15 @@ public class Service_layer {
 		da.drop_course(id);
 	}
 
+	public List<approval> getcourses(profile use) {
+		
+		return da.getcourses(use);
+	}
+
+	public void update_Head_approval(String val,String id,String cou_id) {
+		da.update_approval(val,id,cou_id);
+	}
+
 
 
 	

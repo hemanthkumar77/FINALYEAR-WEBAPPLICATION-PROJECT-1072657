@@ -281,4 +281,41 @@ public class Data {
 			e.printStackTrace();
 		}
 	}
+
+	public List<approval> getcourses(profile use) {
+		List<approval>val=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String dept=use.getDepartment();
+		String HQL="from approval where department=?";
+		Query<approval>query=session.createQuery(HQL,approval.class);
+		query.setParameter(0,dept);
+	    val=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return val;
+	}
+
+	public void update_approval(String val,String id,String cou_id) {
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="update approval  set head=? where id=? and course_id=?";
+		 Query query=session.createQuery(HQL);
+		query.setParameter(0,val);
+		query.setParameter(1,id);
+		query.setParameter(2,cou_id);
+	    query.executeUpdate();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }
