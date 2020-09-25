@@ -35,5 +35,10 @@ public class exceptionhandler {
 		return "exception";
 	}	
 	
+	@ExceptionHandler(NumberFormatException.class)
+	public String conversion(HttpServletRequest request, Exception ex,Model mod){
+		mod.addAttribute("error","input conversion problem");
+		return "exception";
+	}
 	
 }

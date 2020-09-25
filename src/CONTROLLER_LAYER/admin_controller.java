@@ -2,6 +2,7 @@ package CONTROLLER_LAYER;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import ENTITES.approval;
 import ENTITES.courses;
 import ENTITES.profile;
+import ENTITES.registered;
 import SERVICE_LAYER.Service_layer;
 
 @Controller
@@ -101,6 +105,50 @@ public class admin_controller {
 		return "redirect:/admin/course";
 	}
 	
+	@RequestMapping(value="/confirmation",method=RequestMethod.GET)
+	public String confirmations(@SessionAttribute("user") profile user,Model mod)
+	{
+		String name=user.getFirstname()+user.getLastname();
+	   List<approval>app=SE.get_approvals();
+	    mod.addAttribute("obj",app);
+		return "final_approval";
+	}
+	
+	@GetMapping
+	@RequestMapping("/add")
+	public String insert(@RequestParam Map<String,String>map)
+	{
+		String stu_id=map.get("id");
+		String stu_name=map.get("name");
+		String dept=map.get("dept");
+		String course_id=map.get("cou_id");
+		String course_name=map.get("cou_name");
+		String staff=map.get("staff");
+		int credits=Integer.valueOf(map.get("cred"));
+		String semester=map.get("sem");
+		registered reg=new registered(stu_id,stu_name,dept,course_id,course_name,staff,credits,semester);
+		SE.add_registered(reg,stu_id,course_id);
+		return "redirect:/admin/profile";
+	}
+	
+	@DeleteMapping
+	@RequestMapping("/dropped")
+	public String delete_app(@RequestParam Map<String,String>map)
+	{
+		String stu_id=map.get("id");
+		String course_id=map.get("cou_id");
+		SE.drop_course(course_id,stu_id);
+		return "redirect:/admin/profile";
+	}
+	
+	@GetMapping
+	@RequestMapping("/pro_details")
+	public String pro_details(Model mod)
+	{
+		List<profile>use=SE.get_pro();
+		mod.addAttribute("obj",use);
+		return "prof_records";
+	}
 	
 	@ModelAttribute
 	public void values(Model mod)
@@ -119,4 +167,5 @@ public class admin_controller {
 		mod.addAttribute("sem",sem);
 		
 	}
+	
 }

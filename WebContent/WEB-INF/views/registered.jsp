@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-      <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+       <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>PENDING APPROVAL</title>
+<title>registered</title>
 <style>
 table
 		{
@@ -40,32 +40,20 @@ table
                 <th>COURSE_NAME</th>
                 <th>CREDITS</th>
                  <th>PROFESSOR</th>
-                 <th>DAYS</th>
-                 <th>TIMINGS</th>
                  <th>SEMESTER</th>
-                 <th>HEAD_APPROVAL</th>
-                 <th>ADMIN_APPROVAL</th>
-                 <th>DROP_COURSE</th>
+                 <th>FINAL_GRADE</th>
             </tr>
-            <c:forEach var="obj" items="${obj}">
-            <c:url var="delete" value="/student/drop_course">
-            <c:param name="del_id" value="${obj.course_id}"></c:param>
-            <c:param name="stu_id" value="${obj.id}"></c:param>
-            </c:url>   
+            <c:forEach var="obj" items="${obj}">  
                 <tr>
                     <td><c:out value="${obj.id}" /></td>
-                    <td><c:out value="${obj.firstname}" /></td>
+                    <td><c:out value="${obj.studentname}" /></td>
                     <td><c:out value="${obj.department}" /></td>
                     <td><c:out value="${obj.course_id}" /></td>
                     <td><c:out value="${obj.course_name}" /></td>
                     <td><c:out value="${obj.credits}" /></td>
-                    <td><c:out value="${obj.staffname}" /></td>
-                     <td><c:out value="${obj.days}" /></td>
-                     <td><c:out value="${obj.timings}" /></td>
+                    <td><c:out value="${obj.staff_name}" /></td>
                      <td><c:out value="${obj.semester}" /></td>
-                     <td><c:out value="${obj.head}"/></td>
-                     <td><c:out value="${obj.admin}"/></td>
-                     <td><a href="${delete}">DROP</a></td>
+                     <td><c:out value="${obj.final_grade}"/></td>
                 </tr>
             </c:forEach>
         </table>

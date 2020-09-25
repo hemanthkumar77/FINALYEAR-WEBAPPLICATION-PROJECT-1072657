@@ -13,6 +13,7 @@ import org.hibernate.Session;
 import ENTITES.approval;
 import ENTITES.courses;
 import ENTITES.profile;
+import ENTITES.registered;
 import ENTITES.user;
 
 @Repository
@@ -266,13 +267,14 @@ public class Data {
 		return val;
 	}
 
-	public void drop_course(String id) {
+	public void drop_course(String id, String stu_id) {
 		try(Session session=getSf().openSession())
 		{
 		session.beginTransaction();
-		String HQL="delete from approval where course_id=?";
+		String HQL="delete from approval where course_id=? and id=?";
 		Query query=session.createQuery(HQL);
 		 query.setParameter(0,id);
+		 query.setParameter(1,stu_id);
 		 query.executeUpdate();
 		session.getTransaction().commit();
 		}
@@ -317,5 +319,76 @@ public class Data {
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public List<approval> get_approvals() {
+		
+		List<approval>val=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from approval";
+		Query<approval>query=session.createQuery(HQL,approval.class);
+	    val=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return val;
+	}
+
+	public void add_registered(registered reg, String stu_id, String course_id) {
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		session.save(reg);
+		String HQL="delete from approval where course_id=? and id=?";
+		Query query=session.createQuery(HQL);
+		 query.setParameter(0,course_id);
+		 query.setParameter(1,stu_id);
+		 query.executeUpdate();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public List<registered> getregistered(String id) {
+		List<registered>reg=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from registered where id=?";
+		Query<registered> query=session.createQuery(HQL);
+		 query.setParameter(0,id);
+		 reg=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return reg;
+	}
+
+	public List<profile> get_pro() {
+		List<profile>reg=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from profile where role LIKE '%PROFESSOR' ";
+		Query<profile> query=session.createQuery(HQL);
+		 reg=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return reg;
 	}
 }

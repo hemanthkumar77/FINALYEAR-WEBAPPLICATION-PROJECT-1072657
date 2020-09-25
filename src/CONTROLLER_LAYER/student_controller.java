@@ -80,9 +80,9 @@ public class student_controller {
 	
 	@GetMapping
 	@RequestMapping("/drop_course")
-	public String drop(@RequestParam("del_id") String id,@SessionAttribute("user") profile obj,Model mod)
+	public String drop(@RequestParam("del_id") String id,@RequestParam ("stu_id") String stu_id,@SessionAttribute("user") profile obj,Model mod)
 	{
-	    SE.drop_course(id);
+	    SE.drop_course(id,stu_id);
 		String name=obj.getFirstname()+obj.getLastname();
 		mod.addAttribute("user", name);
 		return "student_profile";
@@ -97,5 +97,17 @@ public class student_controller {
 	  List<approval>object=SE.getval(id);
 	  mod.addAttribute("obj", object);
 	  return "approval_pending";
+	}
+	
+	@GetMapping
+	@RequestMapping("/register")
+	public String getall(Model mod,@SessionAttribute("user") profile obj)
+	{
+	  String name=obj.getFirstname()+obj.getLastname();
+      mod.addAttribute("user", name);
+      List<registered>reg=SE.getregistered(obj.getId());
+      mod.addAttribute("obj",reg);
+      return "registered";
+      
 	}
 }

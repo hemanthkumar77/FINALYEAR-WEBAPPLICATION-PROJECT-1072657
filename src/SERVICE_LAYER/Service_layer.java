@@ -9,6 +9,7 @@ import DATA_LAYER.Data;
 import ENTITES.approval;
 import ENTITES.courses;
 import ENTITES.profile;
+import ENTITES.registered;
 import ENTITES.user;
 
 @Service
@@ -60,8 +61,8 @@ public class Service_layer {
 		return da.approval_pending(id);
 	}
 
-	public void drop_course(String id) {
-		da.drop_course(id);
+	public void drop_course(String id,String stu_id) {
+		da.drop_course(id,stu_id);
 	}
 
 	public List<approval> getcourses(profile use) {
@@ -71,6 +72,23 @@ public class Service_layer {
 
 	public void update_Head_approval(String val,String id,String cou_id) {
 		da.update_approval(val,id,cou_id);
+	}
+
+	public List<approval> get_approvals() {
+		return da.get_approvals();
+	}
+
+	public void add_registered(registered reg, String stu_id,String course_id) {
+		 da.add_registered(reg,stu_id,course_id);
+	}
+
+	public List<registered> getregistered(String id) {
+		return da.getregistered(id);
+	}
+
+	public List<profile> get_pro() {
+		
+		return da.get_pro();
 	}
 
 

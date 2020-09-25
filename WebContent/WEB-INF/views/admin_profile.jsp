@@ -44,6 +44,11 @@
 <th><h3><i>Professor_Results</i></h3></th>
 <td><a href="dept_results">Results</a></td>
 </tr>
+
+<tr>
+<th><h3><i>Professor_details</i></h3></th>
+<td><a href="pro_details">DETAILS</a></td>
+</tr>
 </table>
 </div>
 </body>
