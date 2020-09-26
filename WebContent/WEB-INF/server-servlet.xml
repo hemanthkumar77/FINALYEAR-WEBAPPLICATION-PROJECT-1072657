@@ -44,6 +44,7 @@
 				<value>ENTITES.courses</value>
 				<value>ENTITES.approval</value>
 				<value>ENTITES.registered</value>
+				 <value>ENTITES.grades</value>
 			</array>
 		</property>
 

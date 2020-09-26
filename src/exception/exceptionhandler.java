@@ -3,7 +3,9 @@ package exception;
 import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 
+import org.hibernate.NonUniqueObjectException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,13 +33,26 @@ public class exceptionhandler {
 	
 	@ExceptionHandler(RuntimeException.class)
 	public String runner(HttpServletRequest request, Exception ex,Model mod){
-		mod.addAttribute("error","Back End Team Is Working On It");
+		mod.addAttribute("error","RUN TIME ERROR");
 		return "exception";
 	}	
 	
 	@ExceptionHandler(NumberFormatException.class)
 	public String conversion(HttpServletRequest request, Exception ex,Model mod){
 		mod.addAttribute("error","input conversion problem");
+		return "exception";
+	}
+	
+	
+	@ExceptionHandler(NonUniqueObjectException.class)
+	public String hiber(HttpServletRequest request, Exception ex,Model mod){
+		mod.addAttribute("error","duplicate entry in the DB");
+		return "exception";
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public String duplicate(HttpServletRequest request, Exception ex,Model mod){
+		mod.addAttribute("error","duplicate entry in the DB");
 		return "exception";
 	}
 	

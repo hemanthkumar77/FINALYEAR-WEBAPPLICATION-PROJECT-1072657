@@ -12,6 +12,7 @@ import org.hibernate.Session;
 
 import ENTITES.approval;
 import ENTITES.courses;
+import ENTITES.grades;
 import ENTITES.profile;
 import ENTITES.registered;
 import ENTITES.user;
@@ -390,5 +391,126 @@ public class Data {
 			e.printStackTrace();
 		}
 		return reg;
+	}
+
+	public List<registered> get_details(String cour_id, String role, String name) {
+		List<registered>val=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from registered where course_id=? and staff_name=? and semester=? ";
+		Query<registered> query=session.createQuery(HQL);
+		query.setParameter(0,cour_id);
+		query.setParameter(1,name);
+		query.setParameter(2,role);
+		 val=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return val;
+	}
+
+	public void add_grades(grades grs, String cou) {
+		try(Session session=getSf().openSession())
+		{
+			session.beginTransaction();
+			String HQL="from grades where course_id=? and id=?";
+			Query<grades> query=session.createQuery(HQL);
+			query.setParameter(0,cou);
+			query.setParameter(1,grs.getId());
+			grades obj=query.uniqueResult();
+			if(obj==null)
+			{
+			session.save(grs);
+			}
+			session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public List<grades> get_grades(String cour_id, String role) {
+		List<grades>val=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from grades where course_id=? and semester=? ";
+		Query<grades> query=session.createQuery(HQL);
+		query.setParameter(0,cour_id);
+		query.setParameter(1,role);
+		 val=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return val;
+	}
+
+	public grades get_values(String stu_id, String course_id, String semester) {
+		grades grs=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from grades where course_id=? and semester=? and id=?";
+		Query<grades> query=session.createQuery(HQL);
+		query.setParameter(0,course_id);
+		query.setParameter(1,semester);
+		query.setParameter(2,stu_id);
+		 grs=query.uniqueResult();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return grs;
+	}
+
+	public void update_grades(grades use) {
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="update grades set assignment=?,project=?, midterm=?,finals=?,final_grade=? where id=? and course_id=?";
+		 Query query=session.createQuery(HQL);
+		query.setParameter(0,use.getAssignment());
+		query.setParameter(1,use.getProject());
+		query.setParameter(2,use.getMidterm());
+		query.setParameter(3,use.getFinals());
+		query.setParameter(4,use.getFinal_grade());
+		query.setParameter(5,use.getId());
+		query.setParameter(6,use.getCourse_id());
+	    query.executeUpdate();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+	}
+
+	public List<grades> get_gardes(String id) {
+		List<grades>val=null;
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="from grades where id=?";
+		Query<grades> query=session.createQuery(HQL);
+		query.setParameter(0,id);
+		 val=query.list();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return val;
 	}
 }

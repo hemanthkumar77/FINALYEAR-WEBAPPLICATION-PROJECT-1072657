@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import DATA_LAYER.Data;
 import ENTITES.approval;
 import ENTITES.courses;
+import ENTITES.grades;
 import ENTITES.profile;
 import ENTITES.registered;
 import ENTITES.user;
@@ -89,6 +90,33 @@ public class Service_layer {
 	public List<profile> get_pro() {
 		
 		return da.get_pro();
+	}
+
+	public List<registered> retrived(String cour_id, String role, String name) {
+		return da.get_details(cour_id,role,name);
+	}
+
+	public void add_grades(grades grs, String cou) {
+		da.add_grades(grs,cou);
+	}
+
+	public List<grades> get_gardes(String cour_id, String role) {
+		
+		return da.get_grades(cour_id,role);
+	}
+
+	public grades get_values(String stu_id, String course_id, String semester) {
+	
+		return da.get_values(stu_id,course_id,semester);
+	}
+
+	public void update_grades(grades use) {
+		da.update_grades(use);
+	}
+
+	public List<grades> get_gardes(String id) {
+		
+		return da.get_gardes(id);
 	}
 
 

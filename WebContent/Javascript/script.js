@@ -47,6 +47,7 @@ function check()
 				er1.innerHTML="";
 			}
 			
+	 
 }
 function update()
 	{

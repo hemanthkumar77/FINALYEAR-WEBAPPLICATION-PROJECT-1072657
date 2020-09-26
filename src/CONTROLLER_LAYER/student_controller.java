@@ -108,6 +108,14 @@ public class student_controller {
       List<registered>reg=SE.getregistered(obj.getId());
       mod.addAttribute("obj",reg);
       return "registered";
-      
+	}
+	
+	@GetMapping
+	@RequestMapping("/grades")
+	public String updateall(@SessionAttribute("user") profile obj,Model mod)
+	{
+		List<grades>gra=SE.get_gardes(obj.getId());
+	     mod.addAttribute("obj",gra);
+	     return "student_grade";
 	}
 }
