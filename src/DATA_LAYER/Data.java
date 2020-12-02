@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -512,5 +513,71 @@ public class Data {
 			e.printStackTrace();
 		}
 		return val;
+	}
+
+	public double getgpa(String id, String name) {
+		 double total=0.00;
+		 double total_gpa=0.00;
+		List<String>data=new ArrayList<String>();
+		List<Double>calculate=new ArrayList<Double>();
+		try(Session session=getSf().openSession())
+		{
+		session.beginTransaction();
+		String HQL="select course_id,final_grade from grades where id=?";
+		Query<Object[]> query=session.createQuery(HQL);
+		query.setParameter(0,id);
+		List<Object[]>obj=query.list();
+		
+        // collecting each subject marks
+		for(Object[] ob:obj)
+        {
+           data.add((String) ob[1]);
+        }
+        for(String value:data)
+        {
+        	switch(value)
+        	{
+        	case "A":
+        		   calculate.add(4.00);
+        		   break;
+        	case "A-":
+        		   calculate.add(3.70);
+        		   break;
+        	case "B+":
+        		   calculate.add(3.30);
+        	       break;
+        	case "B":
+        		   calculate.add(3.00);
+        		   break;
+        	case "B-":
+        		    calculate.add(2.70);
+        		    break;
+        	case "C+":
+        		    calculate.add(2.30);
+        		    break;
+        	case "C":
+        		   calculate.add(2.0);
+        		   break;
+        	case "F":
+        		    calculate.add(0.00);
+        		    break;
+        	default:
+        	     	break;
+        	}
+        }
+        // suming all the grades
+        for(Double gra:calculate)
+        {
+        	total=total+gra;
+        }
+        // finally figuring out the average marks of gpa
+        total_gpa=total / calculate.size();
+		session.getTransaction().commit();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return total_gpa;
 	}
 }

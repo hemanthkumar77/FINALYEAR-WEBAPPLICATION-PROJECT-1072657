@@ -127,7 +127,6 @@ public class professor_controller {
 		gra.add("B-");
 		gra.add("C+");
 		gra.add("C");
-		gra.add("C-");
 		gra.add("F");
 		gra.add("NG");
 		mod.addAttribute("gra", gra);

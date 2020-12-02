@@ -14,37 +14,18 @@
 <a href="/FINALYEAR-WEBAPPLICATION-PROJECT-1072657"><i>logout</i></i></a>
 <hr>
 <table align="center">
-
 <tr>
 <th><h3><i>Courses</i></h3></th>
 <td><a href="course">Courses_Info</a></td>
 </tr>
 <tr>
-
-<th><h2><i>Final_Result</i></h3></th>
-<td><a href="semester_grades">Results</a></td>
-</tr>
-
-<tr>
 <th><h3><i>New_Course</i></h3></th>
 <td><a href="add_course">Add</a></td>
 </tr>
 <tr>
-
 <th><h3><i>Final_course_Approval</i></h3></th>
 <td><a href="confirmation">Approval</a></td>
 </tr>
-
-<tr>
-<th><h3><i>Course_Fees</i></h3></th>
-<td><a href="Fee_structure">Financial_Document</a></td>
-</tr>
-
-<tr>
-<th><h3><i>Professor_Results</i></h3></th>
-<td><a href="dept_results">Results</a></td>
-</tr>
-
 <tr>
 <th><h3><i>Professor_details</i></h3></th>
 <td><a href="pro_details">DETAILS</a></td>

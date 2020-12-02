@@ -119,7 +119,7 @@ public class admin_controller {
 	public String insert(@RequestParam Map<String,String>map)
 	{
 		String stu_id=map.get("id");
-		String stu_name=map.get("name");
+		String stu_name=map.get("name"); 
 		String dept=map.get("dept");
 		String course_id=map.get("cou_id");
 		String course_name=map.get("cou_name");
@@ -140,7 +140,7 @@ public class admin_controller {
 		SE.drop_course(course_id,stu_id);
 		return "redirect:/admin/profile";
 	}
-	
+		
 	@GetMapping
 	@RequestMapping("/pro_details")
 	public String pro_details(Model mod)

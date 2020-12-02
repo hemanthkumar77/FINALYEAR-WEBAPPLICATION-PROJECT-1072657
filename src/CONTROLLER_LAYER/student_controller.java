@@ -23,6 +23,7 @@ import SERVICE_LAYER.Service_layer;
 public class student_controller {
 	@Autowired
 	private Service_layer SE;
+	private double gpa;
 	@GetMapping()
 	@RequestMapping("/profile")
 	public String profile( @SessionAttribute("user") profile use,Model mod)
@@ -109,6 +110,16 @@ public class student_controller {
       mod.addAttribute("obj",reg);
       return "registered";
 	}
+	@GetMapping
+	@RequestMapping("/marksheets")
+	public String marksheets(Model mod,@SessionAttribute("user") profile obj)
+	{
+		 System.out.println("IDin the next line");
+		 System.out.print("ID:" +obj.getId());
+		 gpa=SE.getgpa(obj.getId(),obj.getLastname());
+		 //System.out.println("average gpa: "+gpas);
+		 return "redirect:/student/grades";
+	}
 	
 	@GetMapping
 	@RequestMapping("/grades")
@@ -116,6 +127,7 @@ public class student_controller {
 	{
 		List<grades>gra=SE.get_gardes(obj.getId());
 	     mod.addAttribute("obj",gra);
+	     mod.addAttribute("GPA",gpa);
 	     return "student_grade";
 	}
 }

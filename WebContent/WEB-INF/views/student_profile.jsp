@@ -44,11 +44,6 @@
 <th><h3><i>COURSES</i></h3></th>
 <td><a href="search">Courses</a></td>
 </tr>
-
-<tr>
-<th><h3><i>Course_Fees</i></h3></th>
-<td><a href="Fees">Financial_Document</a></td>
-</tr>
 </table>
 </div>
 </body>

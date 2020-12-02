@@ -119,6 +119,12 @@ public class Service_layer {
 		return da.get_gardes(id);
 	}
 
+	public double getgpa(String id, String name) {
+		return da.getgpa(id,name);
+	}
+
+
+
 
 
 	

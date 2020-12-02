@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
@@ -42,6 +43,14 @@ private String final_grade;
 @Length(max=12,message="not matching the format length")
 @Pattern(regexp="^UB-[A-Z]{4}-[0-9]{4}$", message="example UB-CPCS-1000")
 private String course_id;
+@Transient
+private double gpa;
+public double getGpa() {
+	return gpa;
+}
+public void setGpa(double gpa) {
+	this.gpa = gpa;
+}
 public String getCourse_id() {
 	return course_id;
 }
