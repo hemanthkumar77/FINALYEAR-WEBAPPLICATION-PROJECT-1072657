@@ -118,7 +118,7 @@ public class student_controller {
 		 System.out.print("ID:" +obj.getId());
 		 gpa=SE.getgpa(obj.getId(),obj.getLastname());
 		 //System.out.println("average gpa: "+gpas);
-		 return "redirect:/student/grades";
+		 return "redirect:/student/gradesheet";
 	}
 	
 	@GetMapping
@@ -127,7 +127,19 @@ public class student_controller {
 	{
 		List<grades>gra=SE.get_gardes(obj.getId());
 	     mod.addAttribute("obj",gra);
-	     mod.addAttribute("GPA",gpa);
+	     //mod.addAttribute("GPA",gpa);
 	     return "student_grade";
 	}
+	
+	@GetMapping
+	@RequestMapping("/gradesheet")
+	public String getall(@SessionAttribute("user") profile obj,Model mod)
+	{
+		List<grades>gra=SE.get_gardes(obj.getId());
+	     mod.addAttribute("obj",gra);
+	     mod.addAttribute("GPA",gpa);
+	     mod.addAttribute("data",obj);
+	     return "Gradesheet";
+	}
+	
 }
