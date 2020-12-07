@@ -16,20 +16,11 @@
 <table align="center">
 
 <tr>
-<th><h3><i>STUDENT_ACADEMIC</i></h3></th>
-<td><a href="stu_pro">Profiles</a></td>
-</tr>
-
-<tr>
 <th><h3><i>Pending_Approvals</i></h3></th>
 <td><a href="approvals">Approvals</a></td>
 </tr>
 <tr>
 
-<tr>
-<th><h3><i>Professor_Profiles</i></h3></th>
-<td><a href="pro_pro">Details</a></td>
-</tr>
 </table>
 </div>
 </body>
